@@ -72,7 +72,25 @@ gulp.task('build-js', function() {
   return merge(full, min);
 });
 
+gulp.task('build-js-noJQ', function() {
+  var full = gulp.src([
+    'src/js/noJQmain.js'
+  ])
+  .pipe(concat('noJQmain.js'))
+  .pipe(gulp.dest('dist/js'));
+
+  var min = gulp.src([
+    'src/js/noJQmain.js'
+  ])
+  .pipe(concat('noJQmain.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('dist/js'));
+
+  return merge(full, min);
+});
+
 gulp.task('watch', function(){
   gulp.watch('./src/scss/**/*.scss', ['build-css']);
   gulp.watch('./src/js/**/*.js', ['build-js']);
+  gulp.watch('./src/js/**/*.js', ['build-js-noJQ']);
 });
